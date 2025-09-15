@@ -1,4 +1,4 @@
-# signal_analysis_basic.py
+# import statements
 import csv
 import matplotlib.pyplot as plt
 import math
@@ -26,16 +26,29 @@ def compute_stats(signal, name):
     print(f"  Std Dev: {std_val:.4f}")
 
 # === Load CSV (Signals) ===
+c=0 ###count
 time, resp, pleth = [], [], []
+#print("hello! program started!")
+#print("time, resp,pleth = ",time,resp,pleth,end="\n")
 with open("bidmc_01_Signals.csv", "r") as f:
+    print("Opened Signals file")
+    c+=1 #count for sample data
     reader = csv.DictReader(f)
     for row in reader:
-        time.append(float(row["Time [s]"]))
-        resp.append(float(row["RESP"]))
-        pleth.append(float(row["PLETH"]))
-
+        if c>20:  #for sample data
+            break  #for sample data
+        #print("   c=",c,"row,len(row) = ",row,len(row))
+        time.append(row["Time [s]"])
+        resp.append(float(row[" RESP"]))
+        pleth.append(float(row[" PLETH"]))
+        c+=1 #for sample data
+        
+#print("len(time)= ",len(time),"\nlen(resp)= ",len(resp),"len(pleth)= ",len(pleth),end="\n\n")
+"""for j in resp:
+    print("j in resp = ",j,"\t",type(j))
+print()"""
 # === Clean Signals ===
-resp_clean = moving_average(resp, window=5)
+resp_clean = moving_average(resp, window=5) ##
 pleth_clean = moving_average(pleth, window=5)
 
 # === Stats ===
@@ -63,4 +76,3 @@ plt.legend()
 
 plt.tight_layout()
 plt.show()
-

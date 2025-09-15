@@ -26,11 +26,13 @@ def compute_stats(signal, name):
     print(f"  Std Dev: {std_val:.4f}")
 
 # === Load CSV (Signals) ===
+filename=input("Enter filename (Example: bidmc_01): ")
+filename=filename+"_Signals.csv"
 c=0 ###count for sample data
 time, resp, pleth = [], [], []
 #print("hello! program started!")
 #print("time, resp,pleth = ",time,resp,pleth,end="\n")
-with open("bidmc_01_Signals.csv", "r") as f:
+with open(filename, "r") as f:
     print("Opened Signals file")
     c+=1 #count for sample data 
     reader = csv.DictReader(f)
